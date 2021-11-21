@@ -26,7 +26,9 @@ const search = () => {
         <StarIcon src="https://img.icons8.com/nolan/64/filled-circle.png" />
         Saved Places
       </SavedPlaces>
-      <ConfirmButtonContainer>Confirm Locations</ConfirmButtonContainer>
+      <Link href="/confirm" passHref>
+        <ConfirmButtonContainer>Confirm Locations</ConfirmButtonContainer>
+      </Link>
       {/* Button Container */}
       {/* Input container */}
       {/* Saved Places */}
