@@ -22,7 +22,7 @@ export default function Home() {
           </Profile>
         </Header>
         <ActionButtons>
-          <Link href="/search">
+          <Link href="/search" passHref>
             <ActionButton>
               <ActionButtonImage src="https://pbs.twimg.com/media/FDEwJ3JUYAgmy8N?format=jpg" />
               Ride

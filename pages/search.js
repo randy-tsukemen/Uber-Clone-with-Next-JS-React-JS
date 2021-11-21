@@ -1,11 +1,14 @@
 import React from "react";
 import tw from "tailwind-styled-components";
+import Link from "next/link";
 
 const search = () => {
   return (
     <Wrapper>
       <ButtonContainer>
-        <BackButton src="https://pbs.twimg.com/profile_images/1198438854841094144/y35Fe_Jj_x96.jpg" />
+        <Link href="/" passHref>
+          <BackButton src="https://pbs.twimg.com/profile_images/1198438854841094144/y35Fe_Jj_x96.jpg" />
+        </Link>
       </ButtonContainer>
       <InputContainer>
         <FromToIcons>
@@ -19,6 +22,11 @@ const search = () => {
         </InputBoxes>
         <PlusIcon src="https://img.icons8.com/nolan/64/filled-circle.png" />
       </InputContainer>
+      <SavedPlaces>
+        <StarIcon src="https://img.icons8.com/nolan/64/filled-circle.png" />
+        Saved Places
+      </SavedPlaces>
+      <ConfirmButtonContainer>Confirm Locations</ConfirmButtonContainer>
       {/* Button Container */}
       {/* Input container */}
       {/* Saved Places */}
@@ -41,6 +49,7 @@ const ButtonContainer = tw.div`
 
 const BackButton = tw.img`
   h-12
+  cursor-pointer
 `;
 
 const InputContainer = tw.div`
@@ -97,3 +106,32 @@ const PlusIcon = tw.img`
   rounded-full
   ml-3
 `;
+
+const SavedPlaces = tw.div`
+  flex
+  items-center
+  bg-white
+  px-4
+  py-2
+`;
+
+const StarIcon = tw.img`
+  bg-gray-400
+  w-10
+  h-10
+  p-2
+  rounded-full
+  mr-2
+`;
+
+const ConfirmButtonContainer = tw.div`
+  bg-black
+  my-2
+  mx-4
+  text-white
+  p-2
+  flex
+  items-center
+  justify-center
+  cursor-pointer
+  `;
