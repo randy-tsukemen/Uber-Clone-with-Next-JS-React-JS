@@ -24,4 +24,9 @@ export const carList = [
     service: "wip",
     multiplier: "1.6",
   },
+  {
+    imgUrl: "https://pbs.twimg.com/media/FEu7PkCaIAAwx4s?format=jpg",
+    service: "Ancient tako",
+    multiplier: "1.6",
+  },
 ];

@@ -1,8 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import tw from "tailwind-styled-components";
 import { carList } from "../data/carList";
 
-const RideSelector = () => {
+const RideSelector = ({ pickupCoordinates, dropOffCoordinates }) => {
+  const [rideDuration, setRideDuration] = useState(0);
+
+  useEffect(() => {
+    console.log(pickupCoordinates);
+    console.log(dropOffCoordinates);
+    fetch(
+      `https://api.mapbox.com/directions/v5/mapbox/driving/${pickupCoordinates[0]},${pickupCoordinates[1]};${dropOffCoordinates[0]},${dropOffCoordinates[1]}?` +
+        new URLSearchParams({
+          access_token:
+            "pk.eyJ1IjoibWlub3JpMTEiLCJhIjoiY2t2bnlsYW9mYTBlYTJvcGdpMzYyd3Z4YSJ9.SFoBd3K7wYVIx-_a7Sgoqw",
+        })
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (typeof data.routes !== "undefined") {
+          setRideDuration(data.routes[0].duration / 100);
+        }
+      });
+  }, [pickupCoordinates, dropOffCoordinates]);
+
   return (
     <Wrapper>
       <Title>Choose a ride, or swipe up for more</Title>
@@ -14,7 +35,9 @@ const RideSelector = () => {
               <CarName>{car.service}</CarName>
               <CarTime>1.5km</CarTime>
             </CarInfo>
-            <CarPrice>$10.00</CarPrice>
+            <CarPrice>
+              {"$" + (rideDuration * car.multiplier).toFixed(2)}
+            </CarPrice>
           </Car>
         ))}
       </CarList>

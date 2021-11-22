@@ -7,16 +7,14 @@ mapboxgl.accessToken =
   "pk.eyJ1IjoibWlub3JpMTEiLCJhIjoiY2t2bnlsYW9mYTBlYTJvcGdpMzYyd3Z4YSJ9.SFoBd3K7wYVIx-_a7Sgoqw";
 
 const Map = (props) => {
-  console.log(props);
+  // console.log(props);
   useEffect(() => {
     const map = new mapboxgl.Map({
       container: "map",
       style: "mapbox://styles/mapbox/streets-v11",
-      center: [30.5, 50.5],
+      center: [-118, 33],
       zoom: 3,
     });
-
-    addToMap([30.5, 50.5], map);
 
     if (props.pickupCoordinates) {
       addToMap(props.pickupCoordinates, map);
