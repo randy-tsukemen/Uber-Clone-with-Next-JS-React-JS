@@ -1,11 +1,31 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import tw from "tailwind-styled-components";
 import Map from "./components/Map";
 import Link from "next/link";
+import { auth } from "../firebase";
+import { onAuthStateChanged, signOut } from "@firebase/auth";
+import { useRouter } from "next/router";
 
 export default function Home() {
+  const router = useRouter();
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    return onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUser({
+          displayName: user.displayName,
+          photoURL: user.photoURL,
+        });
+      } else {
+        setUser(null);
+        router.push("/login");
+      }
+    });
+  }, [router]);
+
   return (
     <Wrapper>
       <Map />
@@ -14,10 +34,17 @@ export default function Home() {
         <Header>
           <UberLogo src="https://pbs.twimg.com/profile_images/1431005685307691009/htnq498e_400x400.jpg"></UberLogo>
           <Profile>
-            <Name>Nanashi Mumei</Name>
+            <Name>
+              Nanashi Mumei
+              {user && user.displayName}
+            </Name>
             <UserImage
               src="https://pbs.twimg.com/profile_images/1431005685307691009/htnq498e_400x400.jpg"
               alt="Nanashi"
+            />
+            <UserImage
+              src={user && user.photoURL}
+              onClick={() => signOut(auth)}
             />
           </Profile>
         </Header>
@@ -85,6 +112,7 @@ const UserImage = tw.img`
   rounded-full
   border-gray-400
   p-px
+  cursor-pointer
   `;
 
 const ActionButtons = tw.div`
