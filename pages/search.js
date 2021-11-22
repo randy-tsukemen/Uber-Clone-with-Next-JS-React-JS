@@ -1,8 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import tw from "tailwind-styled-components";
 import Link from "next/link";
 
-const search = () => {
+const Search = () => {
+  const [pickup, setPickup] = useState(null);
+  const [dropOff, setDropOff] = useState(null);
+
+  console.log(pickup);
+  console.log(dropOff);
+
   return (
     <Wrapper>
       <ButtonContainer>
@@ -17,8 +23,16 @@ const search = () => {
           <Square src="https://img.icons8.com/nolan/64/filled-circle.png" />
         </FromToIcons>
         <InputBoxes>
-          <Input placeholder="Enter pickup location" />
-          <Input placeholder="Where to?" />
+          <Input
+            placeholder="Enter pickup location"
+            onChange={(e) => setPickup(e.target.value)}
+            value={pickup}
+          />
+          <Input
+            placeholder="Where to?"
+            onChange={(e) => setDropOff(e.target.value)}
+            value={dropOff}
+          />
         </InputBoxes>
         <PlusIcon src="https://img.icons8.com/nolan/64/filled-circle.png" />
       </InputContainer>
@@ -26,7 +40,16 @@ const search = () => {
         <StarIcon src="https://img.icons8.com/nolan/64/filled-circle.png" />
         Saved Places
       </SavedPlaces>
-      <Link href="/confirm" passHref>
+      <Link
+        href={{
+          pathname: "/confirm",
+          query: {
+            pickup: pickup,
+            dropOff: dropOff,
+          },
+        }}
+        passHref
+      >
         <ConfirmButtonContainer>Confirm Locations</ConfirmButtonContainer>
       </Link>
       {/* Button Container */}
@@ -37,7 +60,7 @@ const search = () => {
   );
 };
 
-export default search;
+export default Search;
 
 const Wrapper = tw.div`
   bg-gray-200

@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from "react";
 import tw from "tailwind-styled-components";
 import Map from "./components/Map";
+import { useRouter } from "next/router";
 
 const Confirm = () => {
+  const router = useRouter();
+  const { pickup, dropOff } = router.query;
+
   const [pickupCoordinates, setPickupCoordinates] = useState(null);
   const [dropOffCoordinates, setDropOffCoordinates] = useState(null);
 
-  const getPickupCoordinates = () => {
+  const getPickupCoordinates = (pickup) => {
     //   const location = document.getElementById("location").value;
-    const pickup = "Santa Monica";
+    // const pickup = "Santa Monica";
     fetch(
       `https://api.mapbox.com/geocoding/v5/mapbox.places/${pickup}.json?` +
         new URLSearchParams({
@@ -25,8 +29,8 @@ const Confirm = () => {
       });
   };
 
-  const getDropOffCoordinates = () => {
-    const dropOff = "Los Angeles";
+  const getDropOffCoordinates = (dropOff) => {
+    // const dropOff = "Los Angeles";
     fetch(
       `https://api.mapbox.com/geocoding/v5/mapbox.places/${dropOff}.json?` +
         new URLSearchParams({
@@ -37,16 +41,16 @@ const Confirm = () => {
     )
       .then((res) => res.json())
       .then((data) => {
-        console.log("dropoff");
+        console.log("dropOff");
         console.log(data.features[0].center);
         setDropOffCoordinates(data.features[0].center);
       });
   };
 
   useEffect(() => {
-    getPickupCoordinates();
-    getDropOffCoordinates();
-  }, []);
+    getPickupCoordinates(pickup);
+    getDropOffCoordinates(dropOff);
+  }, [pickup, dropOff]);
 
   return (
     <Wrapper>
