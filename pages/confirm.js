@@ -75,11 +75,11 @@ const Wrapper = tw.div`
   flex
   flex-col
   h-screen
-
 `;
 
 const RideContainer = tw.div`
   flex-1
+  h-1/2
   flex flex-col
   `;
 

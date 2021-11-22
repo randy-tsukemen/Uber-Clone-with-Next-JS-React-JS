@@ -1,19 +1,22 @@
 import React from "react";
 import tw from "tailwind-styled-components";
+import { carList } from "../data/carList";
 
 const RideSelector = () => {
   return (
     <Wrapper>
       <Title>Choose a ride, or swipe up for more</Title>
       <CarList>
-        <Car>
-          <CarImage src="https://pbs.twimg.com/media/FEultkcakAgSg3G?format=jpg" />
-          <CarInfo>
-            <CarName>Uber</CarName>
-            <CarTime>1.5km</CarTime>
-          </CarInfo>
-          <CarPrice>$10.00</CarPrice>
-        </Car>
+        {carList.map((car) => (
+          <Car key={car.service}>
+            <CarImage src={car.imgUrl} />
+            <CarInfo>
+              <CarName>{car.service}</CarName>
+              <CarTime>1.5km</CarTime>
+            </CarInfo>
+            <CarPrice>$10.00</CarPrice>
+          </Car>
+        ))}
       </CarList>
     </Wrapper>
   );
@@ -22,8 +25,11 @@ const RideSelector = () => {
 export default RideSelector;
 
 const Wrapper = tw.div`
+  flex
+  flex-col
   flex-1
   bg-gray-300
+  h-1/2
 `;
 
 const Title = tw.div`
@@ -34,7 +40,11 @@ const Title = tw.div`
   border-b-2
 `;
 
-const CarList = tw.div``;
+const CarList = tw.div`
+  flex
+  flex-col
+  overflow-y-scroll
+`;
 
 const Car = tw.div`
   flex
