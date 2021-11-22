@@ -1,13 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
 import tw from "tailwind-styled-components";
+import { useRouter } from "next/router";
+import { signInWithPopup, onAuthStateChanged } from "@firebase/auth";
+import { auth, provider } from "../firebase";
 
 const Login = () => {
+  const router = useRouter();
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        router.push("/");
+      }
+    });
+  }, [router]);
+
   return (
     <Wrapper>
       <LogoBack src="https://pbs.twimg.com/media/FEyGYOcWUAY-reQ?format=jpg" />
       <Logo src="https://pbs.twimg.com/media/FEyGYOcWUAY-reQ?format=jpg" />
-      <Ttile>Login in to access your account</Ttile>
-      <SignInButton>Sign in with Google</SignInButton>
+      <Title>Login in to access your account</Title>
+      <SignInButton onClick={() => signInWithPopup(auth, provider)}>
+        Sign in with Google
+      </SignInButton>
     </Wrapper>
   );
 };
@@ -49,7 +64,7 @@ const LogoBack = tw.img`
   opacity-50
   `;
 
-const Ttile = tw.div`
+const Title = tw.div`
   text-5xl
   pt-4
   text-gray-800
