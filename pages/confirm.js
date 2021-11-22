@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import tw from "tailwind-styled-components";
 import Map from "./components/Map";
 import { useRouter } from "next/router";
+import RideSelector from "./components/RideSelector";
 
 const Confirm = () => {
   const router = useRouter();
@@ -23,8 +24,8 @@ const Confirm = () => {
     )
       .then((res) => res.json())
       .then((data) => {
-        console.log("pickup");
-        console.log(data.features[0].center);
+        // console.log("pickup");
+        // console.log(data.features[0].center);
         setPickupCoordinates(data.features[0].center);
       });
   };
@@ -41,8 +42,8 @@ const Confirm = () => {
     )
       .then((res) => res.json())
       .then((data) => {
-        console.log("dropOff");
-        console.log(data.features[0].center);
+        // console.log("dropOff");
+        // console.log(data.features[0].center);
         setDropOffCoordinates(data.features[0].center);
       });
   };
@@ -59,9 +60,10 @@ const Confirm = () => {
         dropOffCoordinates={dropOffCoordinates}
       />
       <RideContainer>
-        Ride Selector Confirm Button
-        {pickupCoordinates}
-        {dropOffCoordinates}
+        <RideSelector />
+        <ConfirmButtonContainer>
+          <ConfirmButton>Confirm</ConfirmButton>
+        </ConfirmButtonContainer>
       </RideContainer>
     </Wrapper>
   );
@@ -78,4 +80,19 @@ const Wrapper = tw.div`
 
 const RideContainer = tw.div`
   flex-1
+  flex flex-col
   `;
+
+const ConfirmButtonContainer = tw.div`
+  border-t-2
+`;
+
+const ConfirmButton = tw.div`
+  bg-black
+  text-white
+  my-4
+  mx-4
+  py-4
+  text-center
+  text-lg
+`;
